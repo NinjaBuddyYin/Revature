@@ -1,0 +1,152 @@
+
+<div class="navigation">
+  <app-nav></app-nav>
+</div>
+
+<div class="reimbursement__upload__wrapper">
+
+    <div class="alert alert-success" role="alert" *ngIf="successRes">
+        {{ successRes }}
+      </div>
+
+
+  <div class="reimbursement__upload">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <button type="button" class="btn btn-primary" (click)="open(content)" >Add Reimbursement &nbsp; <fa-icon [icon]="faCoffee"></fa-icon></button>
+    
+  </div>
+
+  <div class="reimbursement__display">
+    <form #statusForm="ngForm" (ngSubmit)="StatusFilter(statusForm)">
+      <div class="form-group form-inline">
+        <label class="status" for="status">Filter by Status : </label>
+        <select id="status" name="status" ngModel class="form-control">
+          <option value="">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Approved">Approved</option>
+          <option value="Deny">Deny</option>
+        </select>
+        <div class="panel-footer">
+          <button class="btn btn-primary" type="submit">Filter</button>
+        </div>
+      </div>
+
+      
+  </form>
+      
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">Reimb Id</th>
+          <th scope="col">Reimb Type</th>
+          <th scope="col">Reimb Amount</th>
+          <th scope="col">Reimb Status</th>
+          <th scope="col">Reciept</th>
+          <th scope="col">Reimb Submitted</th>
+          <th scope="col">Resolved Time</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let country of userReims; index as i">
+            <th scope="row">{{ country.id }}</th>
+            <td>
+              {{ country.reimbType  }}
+            </td>
+            <td>
+              {{ country.reimbAmount  }}
+            </td>
+            <td>{{ country.reimbStatus }}</td>
+            <td>{{ country.reimbReceipt }}</td>
+            <td>{{ country.reimbSubmitted | date: 'dd-MMM-yy h:mm:ss a ' }}</td>
+            <td>{{ country.reimbResolved | date: 'dd-MMM-yy h:mm:ss a ' }}</td>
+            <td><fa-icon [icon]="faEye"></fa-icon></td>
+          </tr> 
+        </tbody>
+      </table>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Reimbursement Form</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="form-group">
+            <label for="reimbAmount">Reimbursement Amount</label>
+            <input
+                type="text"
+                class="form-control"
+                id="reimbAmount"
+                aria-describedby="reimbAmount"
+                placeholder="0.00"
+                ngModel
+                name="reimbAmount"
+                required
+                #reimbAmount="ngModel"
+              />
+
+              <span class="help__box" *ngIf="!reimbAmount.valid && reimbAmount.touched">
+                Reimbursement Amount is mandetory</span
+              >
+        </div>
+
+        <div class="form-group">
+            <label for="reimbType">Reimbursement type</label>
+            <input
+                type="text"
+                class="form-control"
+                id="reimbType"
+                aria-describedby="reimbType"
+                placeholder="LODGING, TRAVEL, FOOD, or OTHER."
+                ngModel
+                name="reimbType"
+                required
+                #reimbType="ngModel"
+              />
+
+              <span class="help__box" *ngIf="!reimbType.valid && reimbType.touched">
+                Reimbursement Type is mandetory</span
+              >
+        </div>
+
+        <div class="form-group">
+            <label for="reimbType">Reimbursement Description</label>
+            <input
+                type="text"
+                class="form-control"
+                id="reimbDescription"
+                aria-describedby="reimbDescription"
+                ngModel
+                name="reimbDescription"
+                required
+                #reimbType="ngModel"
+              />
+
+        </div>
+
+        <div class="form-group">
+            <label for="reimbType">Reimbursement Receipt</label>
+             <input
+              type="file"
+              class="form-control"
+              id="reimbReceipt"
+              aria-describedby="reimbReceipt"
+              (change)="onFileSelect($event)"
+            />
+
+        </div>
+
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+          </div>
+      </form>
+    </div>
+    
+  </ng-template>

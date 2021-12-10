@@ -1,0 +1,22 @@
+spring:
+  profiles: local
+  jpa:
+    hibernate:
+      ddl-auto: update
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ers
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      enabled: true
+server:
+  port: 8000
+#file:
+  #location: D:/Fiverr Projects/ers/ers/src/main/resources/files
+file:
+  location: D:/Fiverr Projects/ers/ers/src/main/resources/files/

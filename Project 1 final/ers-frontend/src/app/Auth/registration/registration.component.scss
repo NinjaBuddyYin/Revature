@@ -1,0 +1,25 @@
+.registration__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+   
+  }
+
+  input.ng-invalid.ng-touched{
+    border: 1px solid red;
+  }
+
+  .registraion__body{
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .registration__button{
+    margin-top: 10%;
+  }
+  .registration__wrapper__section{
+    margin: 30px;
+    width: auto;
+  }
